@@ -26,7 +26,7 @@ model = joblib.load("rfiris.pkl")
 
 st.title("IRIS FLOWER CLASSIFICATION APPLICATION")
 
-st.write(predict the species of an Iris Flower Using a Random Forest Model)
+st.write("predict the species of an Iris Flower Using a Random Forest Model")
 
 form = st.form("iris form")
 
