@@ -1,1 +1,79 @@
-{"metadata":{"kernelspec":{"language":"python","display_name":"Python 3","name":"python3"},"language_info":{"pygments_lexer":"ipython3","nbconvert_exporter":"python","version":"3.6.4","file_extension":".py","codemirror_mode":{"name":"ipython","version":3},"name":"python","mimetype":"text/x-python"},"kaggle":{"accelerator":"none","dataSources":[],"isInternetEnabled":false,"language":"python","sourceType":"script","isGpuEnabled":false}},"nbformat_minor":4,"nbformat":4,"cells":[{"cell_type":"code","source":"# %% [code]\n# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\nimport pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\nimport os\nfor dirname, _, filenames in os.walk('/kaggle/input'):\n    for filename in filenames:\n        print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session\n\n# %% [code]\nimport streamlit as st\nimport pandas as pd\nimport joblib \n\nmodel = joblib.load(\"rfiris.pkl\")\n\nst.title(\"IRIS FLOWER CLASSIFICATION APPLICATION\")\n\nst.write(predict the species of an Iris Flower Using a Random Forest Model)\n\nform = st.form(\"iris form\")\n\nform.subheader(\"Enter Flower Measurement\")\n\nsepal_length = form.number_input(\n                \"sepal_lenght(cm)\",\n                min_value = 4.0,\n                max_value = 8.0,\n                value = 5.1\n        )\n\npetal_length = form.number_input(\n                \"petal_length(cm)\",\n                min_value = 1.0,\n                max_value = 7.0,\n                value = 5.1\n        )\n\nsepal_width = form.number_input(\n                \"sepal_width(cm)\",\n                min_value = 4.0,\n                max_value = 8.0,\n                value = 5.1\n        )\n\n\npetal_width = form.number_input(\n                \"petal_width(cm)\",\n                min_value = 0.1,\n                max_value = 2.5,\n                value = 0.2\n        )\n\n\nsubmit_button = form.form_submit_button(predict)\n\nif submit_button: \n    input_data = pd.DataFrame({\n\n        \"sepal_length(cm)\": [sepal_length\n       \"sepal_width (cm)\": [sepal_width],\n       \"petal_length (cm)\": [petal_length],      \n       \"petal_width (cm)\": [petal_width]\n    })\n\nprediction = model.predict(input_data)\n\nst.subheader(\"Prediction Result\")\nst.success(f\"Predicted species: {prediction[0]}\")","metadata":{"_uuid":"bb30b51e-3708-4d3d-b2df-1f0dcb3c528d","_cell_guid":"143f2d61-321e-417e-b24d-2b764b425fe8","trusted":true,"collapsed":false,"jupyter":{"outputs_hidden":false}},"outputs":[],"execution_count":null}]}
+# %% [code]
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load
+
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
+# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
+
+# %% [code]
+import streamlit as st
+import pandas as pd
+import joblib 
+
+model = joblib.load("rfiris.pkl")
+
+st.title("IRIS FLOWER CLASSIFICATION APPLICATION")
+
+st.write(predict the species of an Iris Flower Using a Random Forest Model)
+
+form = st.form("iris form")
+
+form.subheader("Enter Flower Measurement")
+
+sepal_length = form.number_input(
+                "sepal_lenght(cm)",
+                min_value = 4.0,
+                max_value = 8.0,
+                value = 5.1
+        )
+
+petal_length = form.number_input(
+                "petal_length(cm)",
+                min_value = 1.0,
+                max_value = 7.0,
+                value = 5.1
+        )
+
+sepal_width = form.number_input(
+                "sepal_width(cm)",
+                min_value = 4.0,
+                max_value = 8.0,
+                value = 5.1
+        )
+
+
+petal_width = form.number_input(
+                "petal_width(cm)",
+                min_value = 0.1,
+                max_value = 2.5,
+                value = 0.2
+        )
+
+
+submit_button = form.form_submit_button(predict)
+
+if submit_button: 
+    input_data = pd.DataFrame({
+
+        "sepal_length(cm)": [sepal_length
+       "sepal_width (cm)": [sepal_width],
+       "petal_length (cm)": [petal_length],      
+       "petal_width (cm)": [petal_width]
+    })
+
+prediction = model.predict(input_data)
+
+st.subheader("Prediction Result")
+st.success(f"Predicted species: {prediction[0]}")
