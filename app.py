@@ -67,7 +67,7 @@ submit_button = form.form_submit_button(predict)
 if submit_button: 
     input_data = pd.DataFrame({
 
-        "sepal_length(cm)": [sepal_length]
+        "sepal_length(cm)": [sepal_length],
        "sepal_width (cm)": [sepal_width],
        "petal_length (cm)": [petal_length],      
        "petal_width (cm)": [petal_width]
