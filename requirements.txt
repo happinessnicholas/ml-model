@@ -1,6 +1,7 @@
-streamlit-1.50
-scrikit-learn
+streamlit
+scikit-learn
 pandas
 numpy
 joblib
+
 
